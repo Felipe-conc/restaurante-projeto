@@ -1,0 +1,27 @@
+====Clientes=====
+Ao fazer uma encomenda, o cliente informa seu nome, endereço, telefone e os pratos
+que deseja.
+Prato vai pro carrinho.
+Verificar se há produto no carrinho, sou houver aparece um botão para finalizar o pedido.
+Após isso, vai para a tela do carrinho, onde o usuário confere os itens e adiciona ou remove, consulta o preço total e continua para a tela de entrega.
+Na tela de entrega teremos duas opções, retirada ou entrega.
+Caso escolha retirada, finalizar pedido.
+Para entregas, solicitar endereço e forma de pagamento, após isso gravar no banco as informações como, nome do cliente, o endereço, o telefone e os
+pratos pedidos.
+
+
+====ADM====
+Para cadastrar um novo prato é necessário fazer login como ADM
+ADM vai ter acesso ao crud para cadastrar pratos, ingredientes, fornecedores.
+Na tela de cadastro de fornecedores deve ter todas as informações necessárias.
+
+
+===Tabelas===
+
+Clientes = (cod_cliente, nome, endereco, telefone)
+Pedidos = (cod_pedido, cod_cliente, preco_total, data_pedido)
+<>Itens_pedidos = (cod_pedido, cod_prato, quantidade, valor_unitario(por prato*quantidade))
+Pratos = (cod_prato, descricao, valor_unitario(soma dos ingredientes))
+<>Composição = (cod_prato, cod_ingrediente, quantidade)
+Ingredientes = (cod_ingrediente, descricao, valor_unitario)
+Fornecedores = (cod_fornecedor, razao_social, cnpj)
