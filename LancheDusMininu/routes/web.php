@@ -6,7 +6,7 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/cadastro', function () {
+Route::post('/cadastro', function () {
     return view('cadastro');
 });
 
@@ -30,7 +30,7 @@ Route::get('/cadastro_pedidos', function () {
     return view('pedidos');
 });
 
-Route::get('/fornecedores', function () {
+Route::get('/cadastro_fornecedores', function () {
     return view('fornecedores');
 });
 
