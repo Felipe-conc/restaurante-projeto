@@ -19,9 +19,10 @@ class Clientes {
         $this->telefone = $telefone;
     }
 
-    public function gravar($nomeCliente, $enderecoCliente, $numeroEnderecoCliente, $telefoneCliente){
+    public function gravar(){
         DB::insert('INSERT INTO clientes (nome, endereco, numero_casa, telefone) VALUES (?, ?, ?, ?)', 
-                  [$nomeCliente, $enderecoCliente, $numeroEnderecoCliente, $telefoneCliente]);        
+                //   [$nomeCliente, $enderecoCliente, $numeroEnderecoCliente, $telefoneCliente]);
+                  [$this->nome, $this->nome, $this->nome, $this->nome]);
     }
 
    public function getCodCliente() {
