@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 25/10/2025 às 20:18
+-- Tempo de geração: 25/10/2025 às 20:33
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -48,6 +48,31 @@ CREATE TABLE `cache_locks` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura para tabela `clientes`
+--
+
+CREATE TABLE `clientes` (
+  `cod_cliente` int(11) NOT NULL,
+  `nome` varchar(100) NOT NULL,
+  `endereco` varchar(255) DEFAULT NULL,
+  `telefone` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `composicao`
+--
+
+CREATE TABLE `composicao` (
+  `cod_prato` int(11) NOT NULL,
+  `cod_ingrediente` int(11) NOT NULL,
+  `quantidade` decimal(10,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura para tabela `failed_jobs`
 --
 
@@ -60,6 +85,43 @@ CREATE TABLE `failed_jobs` (
   `exception` longtext NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `fornecedores`
+--
+
+CREATE TABLE `fornecedores` (
+  `cod_fornecedor` int(11) NOT NULL,
+  `razao_social` varchar(100) NOT NULL,
+  `cnpj` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `ingredientes`
+--
+
+CREATE TABLE `ingredientes` (
+  `cod_ingrediente` int(11) NOT NULL,
+  `descricao` varchar(100) NOT NULL,
+  `valor_unitario` decimal(10,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `itens_pedidos`
+--
+
+CREATE TABLE `itens_pedidos` (
+  `cod_pedido` int(11) NOT NULL,
+  `cod_prato` int(11) NOT NULL,
+  `quantidade` int(11) NOT NULL,
+  `valor_unitario` decimal(10,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -132,6 +194,31 @@ CREATE TABLE `password_reset_tokens` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura para tabela `pedidos`
+--
+
+CREATE TABLE `pedidos` (
+  `cod_pedido` int(11) NOT NULL,
+  `cod_cliente` int(11) NOT NULL,
+  `preco_total` decimal(10,2) NOT NULL,
+  `data_pedido` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `pratos`
+--
+
+CREATE TABLE `pratos` (
+  `cod_prato` int(11) NOT NULL,
+  `descricao` varchar(100) NOT NULL,
+  `valor_unitario` decimal(10,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura para tabela `sessions`
 --
 
@@ -149,7 +236,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('RuCNKOOJcHZHPc595Z3QGXaTTym4z2hOlDXh5Lky', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiUVdkUHFRY1k4clNNaU50VFdMV1hXVkY3b2ZwVnE0SFJrNWN3NFdCMCI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1761415985);
+('RuCNKOOJcHZHPc595Z3QGXaTTym4z2hOlDXh5Lky', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiUVdkUHFRY1k4clNNaU50VFdMV1hXVkY3b2ZwVnE0SFJrNWN3NFdCMCI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MzA6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9jYWRhc3RybyI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1761416950);
 
 -- --------------------------------------------------------
 
@@ -185,11 +272,43 @@ ALTER TABLE `cache_locks`
   ADD PRIMARY KEY (`key`);
 
 --
+-- Índices de tabela `clientes`
+--
+ALTER TABLE `clientes`
+  ADD PRIMARY KEY (`cod_cliente`);
+
+--
+-- Índices de tabela `composicao`
+--
+ALTER TABLE `composicao`
+  ADD PRIMARY KEY (`cod_prato`,`cod_ingrediente`),
+  ADD KEY `cod_ingrediente` (`cod_ingrediente`);
+
+--
 -- Índices de tabela `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
+
+--
+-- Índices de tabela `fornecedores`
+--
+ALTER TABLE `fornecedores`
+  ADD PRIMARY KEY (`cod_fornecedor`);
+
+--
+-- Índices de tabela `ingredientes`
+--
+ALTER TABLE `ingredientes`
+  ADD PRIMARY KEY (`cod_ingrediente`);
+
+--
+-- Índices de tabela `itens_pedidos`
+--
+ALTER TABLE `itens_pedidos`
+  ADD PRIMARY KEY (`cod_pedido`,`cod_prato`),
+  ADD KEY `cod_prato` (`cod_prato`);
 
 --
 -- Índices de tabela `jobs`
@@ -217,6 +336,19 @@ ALTER TABLE `password_reset_tokens`
   ADD PRIMARY KEY (`email`);
 
 --
+-- Índices de tabela `pedidos`
+--
+ALTER TABLE `pedidos`
+  ADD PRIMARY KEY (`cod_pedido`),
+  ADD KEY `cod_cliente` (`cod_cliente`);
+
+--
+-- Índices de tabela `pratos`
+--
+ALTER TABLE `pratos`
+  ADD PRIMARY KEY (`cod_prato`);
+
+--
 -- Índices de tabela `sessions`
 --
 ALTER TABLE `sessions`
@@ -236,10 +368,28 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT de tabela `clientes`
+--
+ALTER TABLE `clientes`
+  MODIFY `cod_cliente` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de tabela `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `fornecedores`
+--
+ALTER TABLE `fornecedores`
+  MODIFY `cod_fornecedor` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `ingredientes`
+--
+ALTER TABLE `ingredientes`
+  MODIFY `cod_ingrediente` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `jobs`
@@ -254,10 +404,46 @@ ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT de tabela `pedidos`
+--
+ALTER TABLE `pedidos`
+  MODIFY `cod_pedido` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `pratos`
+--
+ALTER TABLE `pratos`
+  MODIFY `cod_prato` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de tabela `users`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- Restrições para tabelas despejadas
+--
+
+--
+-- Restrições para tabelas `composicao`
+--
+ALTER TABLE `composicao`
+  ADD CONSTRAINT `composicao_ibfk_1` FOREIGN KEY (`cod_prato`) REFERENCES `pratos` (`cod_prato`),
+  ADD CONSTRAINT `composicao_ibfk_2` FOREIGN KEY (`cod_ingrediente`) REFERENCES `ingredientes` (`cod_ingrediente`);
+
+--
+-- Restrições para tabelas `itens_pedidos`
+--
+ALTER TABLE `itens_pedidos`
+  ADD CONSTRAINT `itens_pedidos_ibfk_1` FOREIGN KEY (`cod_pedido`) REFERENCES `pedidos` (`cod_pedido`),
+  ADD CONSTRAINT `itens_pedidos_ibfk_2` FOREIGN KEY (`cod_prato`) REFERENCES `pratos` (`cod_prato`);
+
+--
+-- Restrições para tabelas `pedidos`
+--
+ALTER TABLE `pedidos`
+  ADD CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`cod_cliente`) REFERENCES `clientes` (`cod_cliente`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -6,7 +6,7 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::post('/cadastro', function () {
+Route::get('/cadastro', function () {
     return view('cadastro');
 });
 
