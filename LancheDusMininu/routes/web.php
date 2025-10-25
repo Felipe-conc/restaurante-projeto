@@ -8,11 +8,11 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/cadastro/cliente', function () {
-    return view('cadastroCliente');
+Route::get('/cadastro/clientes', function () {
+    return view('cadastroClientes');
 });
 
-Route::post('/cadastro/cliente', function (Request $request) {
+Route::post('/cadastro/clientes', function (Request $request) {
 
     $nome = $request->input('nomeCliente');
     $endereco = $request->input('enderecoCliente');
@@ -30,7 +30,18 @@ Route::get('/login', function () {
 });
 
 Route::get('/cadastro/fornecedores', function () {
-    return view('CadastroFornecedores');
+    return view('cadastroFornecedores');
+});
+
+Route::post('/cadastro/fornecedores', function (Request $request) {
+
+    $razaoSocial = $request->input('razao_social');
+    $cnpj = $request->input('cnpj');
+
+    $fornecedor = new Fornecedores($razaoSocial, $cnpj);
+    $fornecedor->gravar($razaoSocial,$cnpj);
+
+    return "Fornecedor cadastrado!";
 });
 
 Route::get('/cadastro/ingrediente', function () {

@@ -14,7 +14,7 @@
         <p style="color:red;">{{ session('error') }}</p>
     @endif
 
-    <form action="/cadastro/cliente" method="POST">
+    <form action="/cadastro/clientes" method="POST">
         @csrf
         <input type="text" name="nomeCliente" placeholder="Nome" required><br><br>
         <input type="text" name="enderecoCliente" placeholder="Endereço" required><br><br>
