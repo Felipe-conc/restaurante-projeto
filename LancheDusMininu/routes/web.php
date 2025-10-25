@@ -1,7 +1,7 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use App\Models\Clientes;
 
 Route::get('/', function () {
     return view('index');
@@ -12,11 +12,10 @@ Route::get('/cadastro', function () {
 });
 
 Route::post('/cadastro', function (Request $request) {
-    $nome = $request->input('nomeCliente');
-    $endereco = $request->input('enderecoCliente');
-    $numeroCasa = $request->input('numeroEnderecoCliente');
-    $telefone = $request->input('telefoneCliente');    
-    return "Usuário $nome cadastrado!";
+    $novoCliente = new Clientes();
+    
+
+    return "Usuário cadastrado!";
 });
 
 Route::get('/login', function () {

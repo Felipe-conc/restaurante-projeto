@@ -1,4 +1,5 @@
 <?php
+namespace App\Models;
 
 namespace App\Models;
 use Illuminate\Support\Facades\DB;
@@ -8,12 +9,14 @@ class Clientes {
     private $cod_cliente;
     private $nome;
     private $endereco;
+    private $numeroEndereco;
     private $telefone;
 
 
-    public function __construct($nome, $endereco, $telefone){
+    public function __construct($nome, $endereco, $numeroEndereco, $telefone){
         $this->nome = $nome;
-        $this->endereco = $endereco;
+        $this->endereco = $endereco;     
+        $this->numeroEndereco = $numeroEndereco;  
         $this->telefone = $telefone;
     }
 
@@ -46,6 +49,15 @@ class Clientes {
 
     public function setEndereco($endereco) {
         $this->endereco = $endereco;
+        return $this;
+    }
+
+    public function getnumeroEndereco() {
+        return $this->numeroEndereco;
+    }
+
+    public function setnumeroEndereco($numeroEndereco) {
+        $this->numeroEndereco = $numeroEndereco;
         return $this;
     }
 
