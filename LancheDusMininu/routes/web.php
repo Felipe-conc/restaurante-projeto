@@ -2,6 +2,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Models\Clientes;
+use App\Models\Fornecedores;
 use App\Models\Ingredientes;
 
 Route::get('/', function () {
@@ -38,8 +39,8 @@ Route::post('/cadastro/fornecedores', function (Request $request) {
     $razaoSocial = $request->input('razao_social');
     $cnpj = $request->input('cnpj');
 
-    $fornecedor = new Fornecedores($razaoSocial, $cnpj);
-    $fornecedor->gravar($razaoSocial,$cnpj);
+    $fornecedores = new Fornecedores($razaoSocial, $cnpj);
+    $fornecedores->gravar();
 
     return "Fornecedor cadastrado!";
 });
