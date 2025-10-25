@@ -7,11 +7,11 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/cadastro', function () {
-    return view('cadastro');
+Route::get('/cadastro/cliente', function () {
+    return view('cadastroCliente');
 });
 
-Route::post('/cadastro', function (Request $request) {
+Route::post('/cadastro/cliente', function (Request $request) {
 
     $nome = $request->input('nomeCliente'); 
     $endereco = $request->input('enderecoCliente');
@@ -20,8 +20,6 @@ Route::post('/cadastro', function (Request $request) {
 
     $cliente = new Clientes($nome, $endereco, $numeroCasa, $telefone);
 
-    //$clientes = new Clientes($request->nomeCliente, $request->enderecoCliente, $request->numeroEnderecoCliente, $request->telefoneCliente);
-    // $cliente->gravar($request->nomeCliente, $request->enderecoCliente, $request->numeroEnderecoCliente, $request->telefoneCliente);
     $cliente->gravar($nome, $endereco, $numeroCasa, $telefone);
 
     return "Usuário cadastrado!";
