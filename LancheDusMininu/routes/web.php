@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 Route::get('/', function () {
     return view('index');
@@ -8,6 +9,15 @@ Route::get('/', function () {
 
 Route::get('/cadastro', function () {
     return view('cadastro');
+});
+
+Route::post('/cadastro', function (Request $request) {
+    $nome = $request->input('nomeCliente');
+    $endereco = $request->input('enderecoCliente');
+    $numeroCasa = $request->input('numeroEnderecoCliente');
+    $telefone = $request->input('telefoneCliente');
+
+    return "Usuário $nome cadastrado!";
 });
 
 Route::get('/login', function () {
