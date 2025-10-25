@@ -8,17 +8,20 @@
 <body>
     <form action="/cadastro" method="POST">
     @csrf
-        <label>Nome</label>
-        <input type="text" id="nomeCliente">
-        <label>Endereço</label>
-        <input type="text" id="enderecoCliente">
-        <label>Nº Casa</label>
-        <input type="number" id="numeroEnderecoCliente">
-        <label>Telefone</label>
-        <input type="text" id="telefoneCliente">
-        
-        <button type="submit">Cadastrar</button>
+    <label>Nome</label>
+    <input type="text" id="nomeCliente" name="nomeCliente">
 
-    </form>
+    <label>Endereço</label>
+    <input type="text" id="enderecoCliente" name="enderecoCliente">
+
+    <label>Nº Casa</label>
+    <input type="number" id="numeroEnderecoCliente" name="numeroEnderecoCliente">
+
+    <label>Telefone</label>
+    <input type="text" id="telefoneCliente" name="telefoneCliente">
+
+    <button type="submit">Cadastrar</button>
+</form>
+
 </body>
 </html>

@@ -21,7 +21,7 @@ class Clientes {
     }
 
     public function gravar($nomeCliente, $enderecoCliente, $numeroEnderecoCliente, $telefoneCliente){
-        DB::insert('INSERT INTO clientes (cod_cliente, nome, endereco, numero_casa, telefone) VALUES (?, ?, ?, ?, ?)', 
+        DB::insert('INSERT INTO clientes (nome, endereco, numero_casa, telefone) VALUES (?, ?, ?, ?)', 
                   [$nomeCliente, $enderecoCliente, $numeroEnderecoCliente, $telefoneCliente]);        
     }
 
