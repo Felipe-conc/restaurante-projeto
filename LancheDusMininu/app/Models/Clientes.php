@@ -1,6 +1,9 @@
 <?php
 
-class Cliente {
+namespace App\Models;
+use Illuminate\Support\Facades\DB;
+
+class Clientes {
 
     private $cod_cliente;
     private $nome;
@@ -14,6 +17,10 @@ class Cliente {
         $this->telefone = $telefone;
     }
 
+    public function gravar($nomeCliente, $enderecoCliente, $numeroEnderecoCliente, $telefoneCliente){
+        DB::insert('INSERT INTO clientes (cod_cliente, nome, endereco, numero_casa, telefone) VALUES (?, ?, ?, ?, ?)', 
+                  [$nomeCliente, $enderecoCliente, $numeroEnderecoCliente, $telefoneCliente]);        
+    }
 
    public function getCodCliente() {
         return $this->cod_cliente;

@@ -11,6 +11,11 @@ class Fornecedores{
         $this->cnpj = $cnpj;
     }
 
+    public function gravar($razaoSocial, $cnpj){
+        DB::insert('INSERT INTO fornecedores (razao_social, cnpj) VALUES (?, ?)', 
+                [$razaoSocial, $cnpj]);
+    }
+
     public function getCodFornecedor() {
         return $this->cod_fornecedor;
     }

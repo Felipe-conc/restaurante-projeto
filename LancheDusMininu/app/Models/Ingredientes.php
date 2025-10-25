@@ -9,6 +9,11 @@ class Ingredientes {
         $this->valor_unitario = $valor_unitario;
     }
 
+    public function gravarIngrediente($descricao, $valorUnitario){
+        DB::insert('INSERT INTO ingredientes (descricao, valor_unitario) VALUES (?, ?)', 
+               [$descricao, $valorUnitario]);
+    }
+
     public function getCodIngrediente() {
         return $this->cod_ingrediente;
     }
