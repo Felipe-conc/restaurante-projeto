@@ -9,7 +9,8 @@
 
 <h2>Cadastro de Fornecedores</h2>
 
-<form action="/cadastrar/fornecedor" method="POST">
+<form action="/cadastro/fornecedores" method="POST">
+    @csrf
     <label for="razao_social">Razão Social:</label>
     <input type="text" id="razao_social" name="razao_social" placeholder="Digite a razão social" required>
 
