@@ -29,11 +29,7 @@ Route::get('/login', function () {
     return view('login');
 });
 
-Route::get('/cadastro_clientes', function () {
-    return view('clientes');
-});
-
-Route::get('/cadastro_fornecedores', function () {
+Route::get('/cadastro/fornecedores', function () {
     return view('fornecedores');
 });
 
