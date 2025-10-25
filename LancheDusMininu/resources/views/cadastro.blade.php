@@ -7,7 +7,12 @@
 </head>
 <body>
     <form>
-        
+        <label>Nome</label>
+        <input type="text" id="nomeCliente">
+        <label>Endereço</label>
+        <input type="text" id="enderecoCliente">
+        <label>Telefone</label>
+        <input type="text" id="telefoneCliente">
     </form>
 </body>
 </html>
