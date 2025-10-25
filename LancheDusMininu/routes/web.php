@@ -7,11 +7,11 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/cadastro', function () {
-    return view('cadastro');
+Route::get('/cadastro/cliente', function () {
+    return view('cadastroCliente');
 });
 
-Route::post('/cadastro', function (Request $request) {
+Route::post('/cadastro/cliente', function (Request $request) {
 
     $nome = $request->input('nomeCliente');
     $endereco = $request->input('enderecoCliente');
