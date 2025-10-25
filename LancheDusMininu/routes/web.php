@@ -13,16 +13,13 @@ Route::get('/cadastro', function () {
 
 Route::post('/cadastro', function (Request $request) {
 
-    $nome = $request->input('nomeCliente'); 
+    $nome = $request->input('nomeCliente');
     $endereco = $request->input('enderecoCliente');
     $numeroCasa = $request->input('numeroEnderecoCliente');
     $telefone = $request->input('telefoneCliente');
 
     $cliente = new Clientes($nome, $endereco, $numeroCasa, $telefone);
-
-    //$clientes = new Clientes($request->nomeCliente, $request->enderecoCliente, $request->numeroEnderecoCliente, $request->telefoneCliente);
-    // $cliente->gravar($request->nomeCliente, $request->enderecoCliente, $request->numeroEnderecoCliente, $request->telefoneCliente);
-    $cliente->gravar($nome, $endereco, $numeroCasa, $telefone);
+    $cliente->gravar();
 
     return "Usuário cadastrado!";
 });
