@@ -1,8 +1,7 @@
 <?php
-
 namespace App\Models;
-
 use Illuminate\Support\Facades\DB;
+
 class Ingredientes {
     private $cod_ingrediente;
     private $descricao;

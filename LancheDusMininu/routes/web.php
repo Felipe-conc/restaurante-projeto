@@ -4,15 +4,21 @@ use Illuminate\Http\Request;
 use App\Models\Clientes;
 use App\Models\Fornecedores;
 use App\Models\Ingredientes;
+use App\Models\Pedidos;
+use App\Models\Pratos;
 
+
+//Index
 Route::get('/', function () {
     return view('index');
 });
 
+//Rota clientes
 Route::get('/cadastro/clientes', function () {
     return view('cadastroClientes');
 });
 
+//Rota cadastro de clientes
 Route::post('/cadastro/clientes', function (Request $request) {
 
     $nome = $request->input('nomeCliente');
@@ -26,14 +32,12 @@ Route::post('/cadastro/clientes', function (Request $request) {
     return "Usuário cadastrado!";
 });
 
-Route::get('/login', function () {
-    return view('login');
-});
-
+//Rota fornecedores
 Route::get('/cadastro/fornecedores', function () {
     return view('cadastroFornecedores');
 });
 
+//Rota cadastro de fornecedores
 Route::post('/cadastro/fornecedores', function (Request $request) {
 
     $razaoSocial = $request->input('razao_social');
@@ -45,11 +49,13 @@ Route::post('/cadastro/fornecedores', function (Request $request) {
     return "Fornecedor cadastrado!";
 });
 
-Route::get('/cadastro/ingrediente', function () {
-    return view('cadastroIngrediente');
+//Rota ingredientes
+Route::get('/cadastro/ingredientes', function () {
+    return view('cadastroIngredientes');
 });
 
-Route::post('/cadastro/ingrediente', function (Request $request) {
+//Rota cadastro de ingredientes
+Route::post('/cadastro/ingredientes', function (Request $request) {
 
     $descricao = $request->input('descricao');
     $valor_unitario = $request->input('valor_unitario');
@@ -60,13 +66,26 @@ Route::post('/cadastro/ingrediente', function (Request $request) {
     return "Ingrediente cadastrado!";
 });
 
-Route::get('/cadastro_pedidos', function () {
-    return view('pedidos');
+//Rota pedidos
+Route::get('/cadastro/pedidos', function () {
+    return view('cadastroPedidos');
 });
 
-Route::get('/cadastro_fornecedores', function () {
-    return view('fornecedores');
+//Rota cadastro de pedidos
+Route::post('/cadastro/pedidos', function (Request $request) {
+
+    $cod_cliente = $request->input('cod_cliente');
+    $preco_total = $request->input('preco_total');
+    $data_pedido = $request->input('data_pedido');
+
+    $pedido = new Pedidos($cod_cliente, $preco_total, $data_pedido);
+    $pedido->gravar();
+
+    return "Pedido cadastrado!";
 });
 
-
+//Rota login
+Route::get('/login', function () {
+    return view('login');
+});
 

@@ -6,7 +6,7 @@
 <body>
     <h2>Cadastro de Ingredientes</h2>
 
-<form action="/cadastro/ingrediente" method="POST">
+<form action="/cadastro/ingredientes" method="POST">
     @csrf
     <label for="descricao">Descrição:</label>
     <input type="text" id="descricao" name="descricao" placeholder="Digite a Descrição" required>

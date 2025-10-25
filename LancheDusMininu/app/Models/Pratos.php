@@ -1,4 +1,8 @@
 <?php
+namespace App\Models;
+use Illuminate\Support\Facades\DB;
+
+
 class Pratos {
     private $cod_prato;
     private $descricao;

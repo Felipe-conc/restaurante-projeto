@@ -1,4 +1,7 @@
 <?php
+namespace App\Models;
+use Illuminate\Support\Facades\DB;
+
 class Pedidos {
     private $cod_pedido;
     private $cod_cliente;
@@ -10,6 +13,12 @@ class Pedidos {
         $this->preco_total = $preco_total;
         $this->data_pedido = $data_pedido;
     }
+
+     public function gravar(){
+        DB::insert('INSERT INTO pedidos (cod_cliente, preco_total, data_pedido) VALUES (?, ?, ?)', 
+               [$this->cod_cliente, $this->preco_total, $this->data_pedido]);
+    }
+
 
     public function getCodPedido() {
         return $this->cod_pedido;
