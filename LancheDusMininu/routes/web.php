@@ -2,6 +2,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Models\Clientes;
+use App\Models\Ingredientes;
 
 Route::get('/', function () {
     return view('index');
@@ -32,8 +33,19 @@ Route::get('/cadastro/fornecedores', function () {
     return view('fornecedores');
 });
 
-Route::get('/cadastro_ingredientes', function () {
-    return view('ingredientes');
+Route::get('/cadastro/ingrediente', function () {
+    return view('cadastroIngrediente');
+});
+
+Route::post('/cadastro/ingrediente', function (Request $request) {
+
+    $descricao = $request->input('descricao');
+    $valor_unitario = $request->input('valor_unitario');
+
+    $ingrediente = new Ingredientes($descricao, $valor_unitario);
+    $ingrediente->gravar();
+
+    return "Ingrediente cadastrado!";
 });
 
 Route::get('/cadastro_pedidos', function () {

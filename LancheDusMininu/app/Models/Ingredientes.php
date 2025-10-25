@@ -1,4 +1,8 @@
 <?php
+
+namespace App\Models;
+
+use Illuminate\Support\Facades\DB;
 class Ingredientes {
     private $cod_ingrediente;
     private $descricao;
@@ -9,9 +13,9 @@ class Ingredientes {
         $this->valor_unitario = $valor_unitario;
     }
 
-    public function gravarIngrediente($descricao, $valorUnitario){
+    public function gravar(){
         DB::insert('INSERT INTO ingredientes (descricao, valor_unitario) VALUES (?, ?)', 
-               [$descricao, $valorUnitario]);
+               [$this->descricao, $this->valor_unitario]);
     }
 
     public function getCodIngrediente() {
