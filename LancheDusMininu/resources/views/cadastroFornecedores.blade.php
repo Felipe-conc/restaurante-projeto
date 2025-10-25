@@ -14,7 +14,7 @@
     <input type="text" id="razao_social" name="razao_social" placeholder="Digite a razão social" required>
 
     <label for="cnpj">CNPJ:</label>
-    <input type="text" id="cnpj" name="cnpj" placeholder="00.000.000/0000-00" required>
+    <input type="text" id="cnpj" name="cnpj" placeholder="000.000.000-00" required>
 
     <button type="submit">Cadastrar Fornecedor</button>
 </form>

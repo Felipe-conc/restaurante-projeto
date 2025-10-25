@@ -30,7 +30,7 @@ Route::get('/login', function () {
 });
 
 Route::get('/cadastro/fornecedores', function () {
-    return view('fornecedores');
+    return view('CadastroFornecedores');
 });
 
 Route::get('/cadastro/ingrediente', function () {
