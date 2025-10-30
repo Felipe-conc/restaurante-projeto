@@ -1,16 +1,48 @@
 <?php
 
-namespace App\Models;
-use Illuminate\Support\Facades\DB;
+class Usuario
+{
+    private $nome_usuario;
+    private $nome;
+    private $senha;
 
-class Usuarios{
-    protected $table = 'usuarios';
-    protected $primaryKey = 'id';
-    public $timestamps = true;
+    public function __construct($nome_usuario, $nome, $senha)
+    {
+        $this->nome_usuario = $nome_usuario;
+        $this->nome = $nome;
+        $this->senha = $senha;
+    }
 
-    protected $fillable = [
-        'nome_usuario',
-        'nome',
-        'senha'
-    ];
+    // GETTERS
+    public function getNomeUsuario()
+    {
+        return $this->nome_usuario;
+    }
+
+    public function getNome()
+    {
+        return $this->nome;
+    }
+
+    public function getSenha()
+    {
+        return $this->senha;
+    }
+
+    // SETTERS
+    public function setNomeUsuario($nome_usuario)
+    {
+        $this->nome_usuario = $nome_usuario;
+    }
+
+    public function setNome($nome)
+    {
+        $this->nome = $nome;
+    }
+
+    public function setSenha($senha)
+    {
+        $this->senha = $senha;
+    }
 }
+?>
