@@ -99,7 +99,7 @@ Route::post('/cadastro/pratos', function (Request $request) {
     $prato = new Pratos($descricao, $valor_unitario);
     $prato->gravar();
 
-    return "Pedido cadastrado!";
+    return "Prato cadastrado!";
 });
 
 //Rota login
