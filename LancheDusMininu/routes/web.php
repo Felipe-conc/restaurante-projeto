@@ -84,6 +84,24 @@ Route::post('/cadastro/pedidos', function (Request $request) {
     return "Pedido cadastrado!";
 });
 
+
+//Rota pedidos
+Route::get('/cadastro/pratos', function () {
+    return view('cadastroPratos');
+});
+
+//Rota cadastro de pedidos
+Route::post('/cadastro/pratos', function (Request $request) {
+
+    $descricao = $request->input('descricao');
+    $valor_unitario = $request->input('valor_unitario');
+
+    $prato = new Pratos($descricao, $valor_unitario);
+    $prato->gravar();
+
+    return "Pedido cadastrado!";
+});
+
 //Rota login
 Route::get('/login', function () {
     return view('login');
