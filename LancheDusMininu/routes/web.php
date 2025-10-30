@@ -30,6 +30,8 @@ Route::get('/login', function () {
     return view('login');
 });
 
+/* FORNECEDORES */
+
 Route::get('/cadastro/fornecedores', function () {
     return view('cadastroFornecedores');
 });
@@ -45,6 +47,8 @@ Route::post('/cadastro/fornecedores', function (Request $request) {
     return "Fornecedor cadastrado!";
 });
 
+/* INGREDIENTES */ 
+
 Route::get('/cadastro/ingrediente', function () {
     return view('cadastroIngrediente');
 });
@@ -59,6 +63,8 @@ Route::post('/cadastro/ingrediente', function (Request $request) {
 
     return "Ingrediente cadastrado!";
 });
+
+
 
 Route::get('/cadastro_pedidos', function () {
     return view('pedidos');
