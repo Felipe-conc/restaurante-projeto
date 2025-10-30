@@ -39,7 +39,6 @@ class Clientes {
 
     public function setCodCliente($cod_cliente) {
         $this->cod_cliente = $cod_cliente;
-        return $this;
     }
 
     public function getNome() {
@@ -48,7 +47,6 @@ class Clientes {
 
     public function setNome($nome) {
         $this->nome = $nome;
-        return $this;
     }
 
     public function getEndereco() {
@@ -57,7 +55,6 @@ class Clientes {
 
     public function setEndereco($endereco) {
         $this->endereco = $endereco;
-        return $this;
     }
 
     public function getnumeroEndereco() {
@@ -66,7 +63,6 @@ class Clientes {
 
     public function setnumeroEndereco($numeroEndereco) {
         $this->numeroEndereco = $numeroEndereco;
-        return $this;
     }
 
     public function getTelefone() {
@@ -75,7 +71,6 @@ class Clientes {
 
     public function setTelefone($telefone) {
         $this->telefone = $telefone;
-        return $this;
     }
 }
 
