@@ -17,6 +17,15 @@ class Ingredientes {
                [$this->descricao, $this->valor_unitario]);
     }
 
+    public function excluir(){
+        DB::delete('DELETE FROM ingredientes WHERE cod_ingrediente = ?', [$this->cod_ingrediente]);
+    }
+
+    public function alterar(){
+        DB::delete('UPDATE ingredientes SET descricao = ?,valor_unitario = ? WHERE cod_ingrediente = ?', 
+                  [$this->descricao, $this->valor_unitario, $this->cod_ingrediente]);
+    }   
+
     public function getCodIngrediente() {
         return $this->cod_ingrediente;
     }

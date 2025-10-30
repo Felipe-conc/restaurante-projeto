@@ -14,11 +14,19 @@ class Pedidos {
         $this->data_pedido = $data_pedido;
     }
 
-     public function gravar(){
+    public function gravar(){
         DB::insert('INSERT INTO pedidos (cod_cliente, preco_total, data_pedido) VALUES (?, ?, ?)', 
                [$this->cod_cliente, $this->preco_total, $this->data_pedido]);
     }
 
+    public function excluir(){
+        DB::delete('DELETE FROM pedidos WHERE cod_pedido = ?', [$this->cod_pedido]);
+    }
+
+    public function alterar(){
+        DB::delete('UPDATE pedidos SET cod_cliente=?, preco_total = ?,data_pedido = ? WHERE cod_pedido = ?', 
+                  [$this->cod_cliente, $this->preco_total, $this->data_pedido, $this->cod_pedido]);
+    }   
 
     public function getCodPedido() {
         return $this->cod_pedido;

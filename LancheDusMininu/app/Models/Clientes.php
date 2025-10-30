@@ -24,6 +24,15 @@ class Clientes {
                   [$this->nome, $this->endereco, $this->numeroEndereco, $this->telefone]);
     }
 
+    public function excluir(){
+        DB::delete('DELETE FROM clientes WHERE cod_cliente = ?', [$this->cod_cliente]);
+    }
+
+    public function alterar(){
+        DB::delete('UPDATE clientes SET nome=?,endereco=?,numero_casa=?,telefone=? WHERE cod_cliente = ?', 
+                  [$this->nome, $this->endereco, $this->numeroEndereco, $this->telefone, $this->cod_cliente]);
+    }
+
    public function getCodCliente() {
         return $this->cod_cliente;
     }

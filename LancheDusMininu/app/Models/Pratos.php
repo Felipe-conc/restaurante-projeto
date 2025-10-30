@@ -13,6 +13,20 @@ class Pratos {
         $this->valor_unitario = $valor_unitario;
     }
 
+    public function gravar(){
+        DB::insert('INSERT INTO pratos(descricao, valor_unitario ) VALUES (?, ?)', 
+                  [$this->descricao, $this->valor_unitario]);
+    }
+
+    public function excluir(){
+        DB::delete('DELETE FROM pratos WHERE cod_prato = ?', [$this->cod_prato]);
+    }
+
+    public function alterar(){
+        DB::delete('UPDATE pratos SET descricao=?,valor_unitario=? WHERE cod_prato = ?', 
+                  [$this->descricao, $this->valor_unitario, $this->cod_prato]);
+    }    
+
     public function getCodPrato() {
         return $this->cod_prato;
     }

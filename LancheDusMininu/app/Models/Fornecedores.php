@@ -18,6 +18,15 @@ class Fornecedores{
                 [$this->razao_social, $this->cnpj]);
     }
 
+    public function excluir(){
+        DB::delete('DELETE FROM fornecedores WHERE cod_fornecedor = ?', [$this->cod_fornecedor]);
+    }
+
+    public function alterar(){
+        DB::delete('UPDATE fornecedores SET razao_social = ?,cnpj = ? WHERE cod_fornecedor = ?', 
+                  [$this->razao_social, $this->cnpj, $this->cod_fornecedor]);
+    }   
+
     public function getCodFornecedor() {
         return $this->cod_fornecedor;
     }
