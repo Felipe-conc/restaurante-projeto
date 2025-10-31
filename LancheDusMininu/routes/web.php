@@ -13,6 +13,9 @@ Route::get('/', function () {
     return view('index');
 });
 
+
+// CLIENTES
+
 //Rota clientes
 Route::get('/cadastro/clientes', function () {
     return view('cadastroClientes');
@@ -32,6 +35,19 @@ Route::post('/cadastro/clientes', function (Request $request) {
     return "Usuário cadastrado!";
 });
 
+Route::post('/deletar/clientes', function (Request $request){
+    $id = $request->input('cod_cliente');
+
+    $cliente = new Clientes(null,null,null,null);
+    $cliente->setCodCliente($id);
+    $cliente->excluir();
+
+    return "Cliente deletado!";
+});
+
+
+// FORNECEDORES
+
 //Rota fornecedores
 Route::get('/cadastro/fornecedores', function () {
     return view('cadastroFornecedores');
@@ -49,6 +65,18 @@ Route::post('/cadastro/fornecedores', function (Request $request) {
     return "Fornecedor cadastrado!";
 });
 
+Route::post('/deletar/fornecedores', function (Request $request){
+    $id = $request->input('cod_fornecedor');
+
+    $fornecedor = new Fornecedores(null,null);
+    $fornecedor->setCodFornecedor($id);
+    $fornecedor->excluir();
+
+    return "Fornecedor deletado!";
+});
+
+//  INGREDIENTES
+
 //Rota ingredientes
 Route::get('/cadastro/ingredientes', function () {
     return view('cadastroIngredientes');
@@ -65,6 +93,19 @@ Route::post('/cadastro/ingredientes', function (Request $request) {
 
     return "Ingrediente cadastrado!";
 });
+
+Route::post('/deletar/ingredientes', function (Request $request){
+    $id = $request->input('cod_ingrediente');
+
+    $ingrediente = new Ingredientes(null,null);
+    $ingrediente->setCodIngrediente($id);
+    $ingrediente->excluir();
+
+    return "Ingrediente deletado!";
+
+});
+
+// PEDIDOS
 
 //Rota pedidos
 Route::get('/cadastro/pedidos', function () {
@@ -84,13 +125,25 @@ Route::post('/cadastro/pedidos', function (Request $request) {
     return "Pedido cadastrado!";
 });
 
+Route::post('/deletar/pedidos', function (Request $request){
+    $id = $request->input('cod_pedido');
 
-//Rota pedidos
+    $pedido = new Pedidos(null,null, null);
+    $pedido->setCodPedido($id);
+    $pedido->excluir();
+
+    return "Pedido deletado!";
+
+});
+
+// PRATOS
+
+//Rota pratos
 Route::get('/cadastro/pratos', function () {
     return view('cadastroPratos');
 });
 
-//Rota cadastro de pedidos
+//Rota cadastro de pratos
 Route::post('/cadastro/pratos', function (Request $request) {
 
     $descricao = $request->input('descricao');
@@ -100,6 +153,17 @@ Route::post('/cadastro/pratos', function (Request $request) {
     $prato->gravar();
 
     return "Prato cadastrado!";
+});
+
+Route::post('/deletar/pratos', function (Request $request){
+    $id = $request->input('cod_prato');
+
+    $prato = new Pratos(null,null);
+    $prato->setCodPrato($id);
+    $prato->excluir();
+
+    return "Prato deletado!";
+
 });
 
 //Rota login
