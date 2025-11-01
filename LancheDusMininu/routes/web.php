@@ -6,6 +6,7 @@ use App\Models\Fornecedores;
 use App\Models\Ingredientes;
 use App\Models\Pedidos;
 use App\Models\Pratos;
+use App\Http\Controllers\UsuariosController;
 
 
 //Index
