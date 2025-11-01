@@ -266,7 +266,7 @@ ALTER TABLE `usuarios`
 --
 ALTER TABLE `usuarios`
   MODIFY `cod_usuario` int(11) NOT NULL AUTO_INCREMENT;
-COMMIT;
+
 
 -- --------------------------------------------------------
 
