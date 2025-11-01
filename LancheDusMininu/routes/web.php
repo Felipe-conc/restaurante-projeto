@@ -10,7 +10,9 @@ use App\Models\Pratos;
 
 //Index
 Route::get('/', function () {
-    return view('index');
+    $pratos = new Pratos(null, null);
+    $pratos = $pratos->listar();
+    return view('index', ["listaPratos"=>$pratos]);
 });
 
 

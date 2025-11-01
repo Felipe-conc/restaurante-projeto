@@ -213,6 +213,8 @@ CREATE TABLE `pedidos` (
 
 CREATE TABLE `pratos` (
   `cod_prato` int(11) NOT NULL,
+  `imagem` varchar(255) NOT NULL,
+  `titulo` varchar(100) NOT NULL,
   `descricao` varchar(100) NOT NULL,
   `valor_unitario` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

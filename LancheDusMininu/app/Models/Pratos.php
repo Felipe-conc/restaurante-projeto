@@ -27,6 +27,11 @@ class Pratos {
                   [$this->descricao, $this->valor_unitario, $this->cod_prato]);
     }    
 
+    public function listar(){
+        $lista = DB::select('SELECT * FROM PRATOS ORDER BY cod_prato desc');
+        return $lista;
+    }
+
     public function getCodPrato() {
         return $this->cod_prato;
     }
