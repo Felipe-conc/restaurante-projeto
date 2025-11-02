@@ -10,7 +10,7 @@
                 </div>
             </div>
             <div class="text-end">
-                <a href="login.php" class="text-white me-2" style="text-decoration:none;">
+                <a href="{{ route('login') }}" class="text-white me-2" style="text-decoration:none;">
                     <i class="fa fa-user" style="font-size:22px; margin-right: 10px;"></i> Entre ou Cadastre-se
                 </a>
                 <span class="text-white mx-2">|</span>
@@ -67,11 +67,11 @@
 
             <!-- Links direita -->
             <div class="d-flex align-items-center">
-                <a href="login.php" class="text-dark me-2" style="text-decoration:none;">
+                <a href="{{ route('login') }}" class="text-dark me-2" style="text-decoration:none;">
                     <i class="fa fa-user" style="font-size:20px;"></i> Entrar
                 </a>
                 <span class="text-muted mx-2">|</span>
-                <a href="cadastro.php" class="text-dark me-3" style="text-decoration:none;">
+                <a href="{{ route('cadUsuario') }}" class="text-dark me-3" style="text-decoration:none;">
                     <i class="fa fa-user-plus" style="font-size:20px;"></i> Cadastrar
                 </a>
                <a href="#" id="abrirCarrinho" class="text-dark" style="text-decoration:none;">

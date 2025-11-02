@@ -14,7 +14,7 @@ Route::get('/', function () {
     $pratos = new Pratos(null, null);
     $pratos = $pratos->listar();
     return view('index', ["listaPratos"=>$pratos]);
-});
+})->name('index');
 
 
 // CLIENTES
@@ -172,5 +172,70 @@ Route::post('/deletar/pratos', function (Request $request){
 //Rota login
 Route::get('/login', function () {
     return view('login');
-});
+})->name('login');
 
+//Rota cadastro usuário
+Route::get('/cadastro/usuario', function () {
+    return view('cadastro');
+})->name('cadUsuario');
+
+Route::post('/get-lanche', function (Request $request) {
+    $id = $request->input('id', 0);
+
+    if ($id <= 0) {
+        return response()->json(['sucesso' => false, 'erro' => 'ID inválido']);
+    }
+
+    $lanche = DB::table('pratos')->where('cod_prato', $id)->first();
+
+    if (!$lanche) {
+        return response()->json(['sucesso' => false, 'erro' => 'Produto não encontrado']);
+    }
+
+    return response()->json([
+    'sucesso' => true,
+    'id' => $lanche->cod_prato,
+    'titulo' => $lanche->titulo,
+    'descricao' => $lanche->descricao,
+    'imagem' => $lanche->imagem,
+    'preco' => (float) $lanche->valor_unitario
+    ]);
+
+})->name('get-lanche');
+
+Route::post('/fechar-pedido', function(Request $request) {
+    $itens = $request->input('itens');
+    $taxaEntrega = $request->input('taxaEntrega', 6.0);
+    try {
+        $subtotal = array_reduce($itens, function($carry, $item) {
+                return $carry + $item['preco'];
+            }, 0);
+        
+        $total = $subtotal + $taxaEntrega;
+
+        $pedidos = new Pedidos(2, $total, now());
+        $pedidos->gravar();
+
+        foreach ($itens as $item) {
+            DB::table('itens_pedido')->insert([
+                'pedido_id' => $pedidoId,
+                'nome' => $item['nome'],
+                'qtd' => $item['qtd'],
+                'preco_unitario' => $item['precoUnitario'],
+                'preco' => $item['preco'],
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
+
+        // Aqui você faria inserções no banco:
+        // 1. Criar registro de pedido
+        // 2. Inserir itens do pedido relacionados
+        // 3. Retornar sucesso ou erro
+        return response()->json(['sucesso' => true, 'mensagem' => 'Pedido finalizado!']);
+
+    } catch (\Exception $e) {
+        DB::rollBack();
+        return response()->json(['sucesso' => false, 'mensagem' => 'Erro ao finalizar pedido: '.$e->getMessage()]);
+    }
+})->name('fechar-pedido');

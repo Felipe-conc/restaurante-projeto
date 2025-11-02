@@ -33,7 +33,7 @@
         <div class="row g-3">
             @foreach ($listaPratos as $prato)
                 <div class="col-md-4" data-aos="zoom-in">
-                    <div class="product-card" data-id=" {{ $prato->cod_prato }} ">
+                    <div class="product-card" data-id="{{ $prato->cod_prato }}">
                         <img src="{{ $prato->imagem }}" alt="{{ $prato->titulo }}">
                         <h6>{{ $prato->titulo }}</h6>
                         <p>{{ $prato->descricao }}</p>
@@ -138,34 +138,64 @@
 let precoBase = 0;
 let quantidade = 1;
 
-$('.product-card').on('click', function() {
-  const id = $(this).data('id');
+$(document).on('click', '.product-card', function() {
+    const id = $(this).data('id');
 
-  $.ajax({
-    url: '_app/get_lanche.php',
-    method: 'POST',
-    data: { id },
-    dataType: 'json',
-    success: function(data) {
-      if (data.sucesso) {
-        $('#popupImagem').attr('src', data.imagem);
-        $('#popupTitulo').text(data.titulo);
-        $('#popupDescricao').text(data.descricao);
-        precoBase = parseFloat(data.preco);
-        $('#totalValor').text(precoBase.toFixed(2).replace('.', ','));
-        quantidade = 1;
-        $('#qtdProduto').text(quantidade);
-        $('#popupProduto').css('display', 'flex');
-      } else {
-        alert('Erro ao carregar o produto.');
-      }
-    },
-    error: function(xhr, status, error) {
-      console.error('Erro AJAX:', status, error);
-      console.error('Resposta:', xhr.responseText);
-    }
-  });
+    $.ajax({
+        url: '{{ route("get-lanche") }}',
+        method: 'POST',
+        data: { id, _token: '{{ csrf_token() }}' },
+        dataType: 'json',
+        success: function(data) {
+            if (data.sucesso) {
+                $('#popupImagem').attr('src', data.imagem);
+                $('#popupTitulo').text(data.titulo);
+                $('#popupDescricao').text(data.descricao);
+                precoBase = parseFloat(data.preco);
+                $('#totalValor').text(precoBase.toFixed(2).replace('.', ','));
+                quantidade = 1;
+                $('#qtdProduto').text(quantidade);
+                $('#popupProduto').css('display', 'flex');
+            } else {
+                alert('Erro ao carregar o produto: ' + data.erro);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Erro AJAX:', status, error);
+            console.error('Resposta:', xhr.responseText);
+        }
+    });
 });
+
+$('#btnFinalizar').on('click', function() {
+    if (carrinho.length === 0) return;
+
+    $.ajax({
+        url: '{{ route("fechar-pedido") }}',
+        method: 'POST',
+        data: {
+            itens: carrinho,
+            taxaEntrega: taxaEntrega,
+            _token: '{{ csrf_token() }}'
+        },
+        dataType: 'json',
+        success: function(data) {
+            if (data.sucesso) {
+                alert(data.mensagem);
+                carrinho = []; // limpa o carrinho
+                atualizarCarrinho();
+                fecharCarrinho();
+            } else {
+                alert('Erro ao finalizar pedido: ' + data.mensagem);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Erro AJAX:', status, error);
+            console.error('Resposta:', xhr.responseText);
+        }
+    });
+});
+
 
 function fecharPopup() {
   $('#popupProduto').hide();
