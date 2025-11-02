@@ -1,4 +1,5 @@
 <?php
+use App\Models\Usuarios;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Models\Clientes;
@@ -174,10 +175,39 @@ Route::get('/login', function () {
     return view('login');
 })->name('login');
 
+Route::post('/login', function (Request $request) {
+
+    $usuario = $request->input('usuario');
+    $senha = $request->input('senha');
+    
+    if ($usuario === 'admin' && $senha === '1234') {
+        return view('admin');
+    }
+
+});
+
 //Rota cadastro usuário
 Route::get('/cadastro/usuario', function () {
     return view('cadastro');
 })->name('cadUsuario');
+
+Route::post('/cadastro/usuario', function (Request $request) {
+    // $usuario = $request->input('usuario');
+    // $senha = $request->input('senha');
+    // $email = $request->input('email');
+
+    $data = [
+        'nome' => $request->input('nome'),
+        'nome_usuario' => $request->input('usuario'),
+        'email' => $request->input('email'),
+        'senha' => $request->input('senha')
+    ];
+
+    $usuario = new Usuarios();
+    $usuario->create($data);
+
+    return redirect()->route('index');
+});
 
 Route::post('/get-lanche', function (Request $request) {
     $id = $request->input('id', 0);
@@ -204,7 +234,9 @@ Route::post('/get-lanche', function (Request $request) {
 })->name('get-lanche');
 
 Route::post('/fechar-pedido', function(Request $request) {
+
     $itens = $request->input('itens');
+
     $taxaEntrega = $request->input('taxaEntrega', 6.0);
     try {
         $subtotal = array_reduce($itens, function($carry, $item) {
@@ -214,24 +246,23 @@ Route::post('/fechar-pedido', function(Request $request) {
         $total = $subtotal + $taxaEntrega;
 
         $pedidos = new Pedidos(2, $total, now());
-        $pedidos->gravar();
+        $pedidoId = $pedidos->gravar();
 
-        foreach ($itens as $item) {
-            DB::table('itens_pedido')->insert([
-                'pedido_id' => $pedidoId,
-                'nome' => $item['nome'],
-                'qtd' => $item['qtd'],
-                'preco_unitario' => $item['precoUnitario'],
-                'preco' => $item['preco'],
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
+        foreach ($itens as $item) { 
+            $prato = DB::table('pratos')->where('titulo', $item['nome'])->first();
+
+            if (!$prato) {
+                throw new Exception("Prato '{$item['nome']}' não encontrado.");
+            }
+
+            DB::table('itens_pedidos')->insert([ 
+                'cod_pedido' => $pedidoId, 
+                'cod_prato' => $prato->cod_prato, 
+                'quantidade' => $item['qtd'], 
+                'valor_unitario' => $item['precoUnitario'] 
+            ]); 
         }
 
-        // Aqui você faria inserções no banco:
-        // 1. Criar registro de pedido
-        // 2. Inserir itens do pedido relacionados
-        // 3. Retornar sucesso ou erro
         return response()->json(['sucesso' => true, 'mensagem' => 'Pedido finalizado!']);
 
     } catch (\Exception $e) {

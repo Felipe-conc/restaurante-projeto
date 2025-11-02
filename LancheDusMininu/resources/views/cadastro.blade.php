@@ -40,19 +40,31 @@
         <!-- Lado direito -->
         <div class="right-panel">
         <h2 style="margin-bottom: 40px;" >CRIAR CONTA</h2>
+        @if(session('success'))
+            <p style="color:green;">{{ session('success') }}</p>
+        @endif
 
-        <form>
+        @if(session('error'))
+            <p style="color:red;">{{ session('error') }}</p>
+        @endif
+
+        <form action="/cadastro/usuario" method="POST">
+            @csrf
             <div class="input-group">
             <i class="fa fa-user"></i>
-            <input type="text" placeholder="Usuário" required>
+            <input type="text" name="nome" placeholder="Nome" required>
+            </div>
+            <div class="input-group">
+            <i class="fa fa-user"></i>
+            <input type="text" name="usuario" placeholder="Usuário" required>
             </div>
             <div class="input-group">
             <i class="fa fa-envelope"></i>
-            <input type="email" placeholder="E-mail" required>
+            <input type="email" name="email" placeholder="E-mail" required>
             </div>
             <div class="input-group">
             <i class="fa fa-lock"></i>
-            <input type="password" placeholder="Senha" required>
+            <input type="password" name="senha" placeholder="Senha" required>
             </div>
             <button type="submit" class="btn-green">Cadastrar-se</button>
         </form>

@@ -40,15 +40,22 @@
         <!-- Lado direito -->
         <div class="right-panel">
         <h2 style="margin-bottom: 40px;" >LOGIN</h2>
+        @if(session('success'))
+            <p style="color:green;">{{ session('success') }}</p>
+        @endif
 
-        <form>
+        @if(session('error'))
+            <p style="color:red;">{{ session('error') }}</p>
+        @endif
+        <form action="/login" method="POST">
+            @csrf
             <div class="input-group">
             <i class="fa fa-user"></i>
-            <input type="text" placeholder="Usuário" required>
+            <input type="text" name="usuario" placeholder="Usuário" required>
             </div>
             <div class="input-group">
             <i class="fa fa-lock"></i>
-            <input type="password" placeholder="Senha" required>
+            <input type="password" name="senha" placeholder="Senha" required>
             </div>
             <button type="submit" class="btn-green">ENTRAR</button>
         </form>
