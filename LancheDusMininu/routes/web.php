@@ -192,10 +192,6 @@ Route::get('/cadastro/usuario', function () {
 })->name('cadUsuario');
 
 Route::post('/cadastro/usuario', function (Request $request) {
-    // $usuario = $request->input('usuario');
-    // $senha = $request->input('senha');
-    // $email = $request->input('email');
-
     $data = [
         'nome' => $request->input('nome'),
         'nome_usuario' => $request->input('usuario'),
