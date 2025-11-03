@@ -212,6 +212,17 @@ Route::post('/login', function (Request $request) {
         return view('admin');
     }
 
+    $usuarioVerifica = DB::table('usuarios')
+    ->where('nome_usuario', $usuario)
+    ->where('senha', $senha)
+    ->first();
+
+    if($usuarioVerifica){
+        //usuário logado
+    } else {
+        return redirect('/login')->with('error', 'Usuário não encontrado.');
+    }
+
 });
 
 //Rota admin
