@@ -169,33 +169,61 @@ Route::post('/deletar/pedidos', function (Request $request){
 });
 
 // PRATOS
-
-//Rota pratos
+// Rota cadastro de prato 
 Route::get('/cadastro/pratos', function () {
     return view('cadastroPratos');
-});
+})->name('cadPratos');
 
-//Rota cadastro de pratos
+// Rota salvar prato
 Route::post('/cadastro/pratos', function (Request $request) {
 
+    $nome = $request->input('nome');
     $descricao = $request->input('descricao');
-    $valor_unitario = $request->input('valor_unitario');
+    $valor = $request->input('valor');
 
-    $prato = new Pratos($descricao, $valor_unitario);
+    $prato = new Pratos($descricao, $valor);
+    $prato->setDescricao($descricao);
+    $prato->setValorUnitario($valor);
     $prato->gravar();
 
-    return "Prato cadastrado!";
+    return redirect()->route('listagemPratos');
 });
 
-Route::post('/deletar/pratos', function (Request $request){
-    $id = $request->input('cod_prato');
+// Listar pratos
+Route::get('/listagem/pratos', function () {
+    $pratos = (new Pratos('', ''))->listar();
+    return view('listagemPratos', ["listaPratos"=>$pratos]);
+})->name('listagemPratos');
 
-    $prato = new Pratos(null,null);
-    $prato->setCodPrato($id);
-    $prato->excluir();
+// Editar prato (form)
+Route::get('/editar/prato/{cod_prato}', function ($cod_prato) {
+    $prato = DB::select("SELECT * FROM pratos WHERE cod_prato = ?", [$cod_prato]);
 
-    return "Prato deletado!";
+    if (!$prato) {
+        return redirect()->route('listagemPratos')->with('error', 'Prato não encontrado.');
+    }
 
+    return view('editarPrato', ['prato' => $prato[0]]);
+});
+
+// Atualizar prato
+Route::post('/editar/prato/{cod_prato}', function (Request $request, $cod_prato) {
+
+    $descricao = $request->input('descricao');
+    $valor = $request->input('valor');
+
+    DB::update("UPDATE pratos SET descricao=?, valor_unitario=? WHERE cod_prato=?", [
+        $descricao, $valor, $cod_prato
+    ]);
+
+    return redirect()->route('listagemPratos')->with('success', 'Prato atualizado!');
+});
+
+// Excluir prato
+Route::delete('/excluir/prato/{cod_prato}', function ($cod_prato) {
+    DB::delete("DELETE FROM pratos WHERE cod_prato = ?", [$cod_prato]);
+
+    return redirect()->route('listagemPratos')->with('success', 'Prato excluído!');
 });
 
 //Rota login
