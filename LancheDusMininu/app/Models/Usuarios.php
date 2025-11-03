@@ -13,7 +13,7 @@ class Usuarios
 
     public static function find($id)
     {
-        return DB::table('usuarios')->where('id', $id)->first();
+        return DB::table('usuarios')->where('cod_usuario', $id)->first();
     }
 
     public static function create($data)
@@ -23,11 +23,11 @@ class Usuarios
 
     public static function updateUser($id, $data)
     {
-        return DB::table('usuarios')->where('id', $id)->update($data);
+        return DB::table('usuarios')->where('cod_usuario', $id)->update($data);
     }
 
     public static function deleteUser($id)
     {
-        return DB::table('usuarios')->where('id', $id)->delete();
+        return DB::table('usuarios')->where('cod_usuario', $id)->delete();
     }
 }

@@ -186,6 +186,11 @@ Route::post('/login', function (Request $request) {
 
 });
 
+//Rota admin
+Route::get('/admin', function () {
+    return view('admin');
+})->name('admin');
+
 //Rota cadastro usuário
 Route::get('/cadastro/usuario', function () {
     return view('cadastro');
@@ -204,6 +209,78 @@ Route::post('/cadastro/usuario', function (Request $request) {
 
     return redirect()->route('index');
 });
+
+//Rota cadastro usuário na tela do admin
+Route::get('/cadastro/usuarioAdmin', function () {
+    return view('cadastroUsuarios');
+})->name('cadUsuarioAdmin');
+
+Route::post('/cadastro/usuarioAdmin', function (Request $request) {
+    $data = [
+        'nome' => $request->input('nome'),
+        'nome_usuario' => $request->input('nome_usuario'),
+        'email' => $request->input('email'),
+        'senha' => $request->input('senha')
+    ];
+
+    $usuario = new Usuarios();
+    $usuario->create($data);
+
+    return redirect()->route('listagemUsuarios');
+});
+
+//Lista de Usuários
+Route::get('/listagem/usuarios', function () {
+    $usuarios = Usuarios::all();
+
+    return view('listagemUsuarios', ["listaUsuarios"=>$usuarios]);
+})->name('listagemUsuarios');
+
+//Editar de usuário
+Route::get('/editar/usuario/{cod_usuario}', function ($cod_usuario) {
+    $usuario = Usuarios::find($cod_usuario);
+
+    if (!$usuario) {
+        return redirect('/listagem/usuarios')->with('error', 'Usuário não encontrado.');
+    }
+
+    return view('editarUsuario', ['usuario' => $usuario]);
+});
+
+Route::post('/editar/usuario/{cod_usuario}', function (Request $request, $cod_usuario) {
+    $usuario = Usuarios::find($cod_usuario);
+
+    if (!$usuario) {
+        return redirect('/listagem/usuarios')->with('error', 'Usuário não encontrado.');
+    }
+
+     $data = [
+        'nome'         => $request->input('nome'),
+        'nome_usuario' => $request->input('nome_usuario'),
+        'email'        => $request->input('email'),
+    ];
+
+    if (!empty($request->input('senha'))) {
+        $data['senha'] = bcrypt($request->input('senha'));
+    }
+
+     Usuarios::updateUser($cod_usuario, $data);
+
+    return redirect('/listagem/usuarios')->with('success', 'Usuário atualizado com sucesso!');
+});
+
+Route::delete('/excluir/usuario/{cod_usuario}', function ($cod_usuario) {
+    App\Models\Usuarios::deleteUser($cod_usuario);
+    return redirect('/listagem/usuarios')->with('success', 'Usuário excluído com sucesso!');
+});
+
+
+
+// Route::get('/excluir/usuario/{cod_usuario}', function ($cod_usuario) {
+//     Usuarios::deleteUser($cod_usuario);
+
+//     return redirect('/listagem/usuarios')->with('success', 'Usuário excluído com sucesso!');
+// });
 
 Route::post('/get-lanche', function (Request $request) {
     $id = $request->input('id', 0);

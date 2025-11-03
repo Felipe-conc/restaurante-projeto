@@ -11,7 +11,7 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Gestão de Atividades</a>
+        <a class="navbar-brand" href="#">Gestão da Lanchonete</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Alternar navegação">
             <span class="navbar-toggler-icon"></span>
@@ -19,10 +19,10 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto"> <!-- Alinhado à direita -->
                 <li class="nav-item">
-                    <a class="nav-link" href="cadastrar_atividade.php">Cadastrar Atividade</a>
+                    <a class="nav-link" href="{{ route('cadUsuarioAdmin') }}">Cadastrar Usuário</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="alunos.php">Cadastrar Aluno</a>
+                    <a class="nav-link" href="{{ route('listagemUsuarios') }}">Listar Usuários</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="formulario.php">Cadastrar Entrega</a>
