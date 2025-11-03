@@ -84,7 +84,7 @@ Route::post('/deletar/fornecedores', function (Request $request){
 //Rota ingredientes
 Route::get('/cadastro/ingredientes', function () {
     return view('cadastroIngredientes');
-});
+})->name('cadIngrediente');
 
 //Rota cadastro de ingredientes
 Route::post('/cadastro/ingredientes', function (Request $request) {
@@ -95,18 +95,46 @@ Route::post('/cadastro/ingredientes', function (Request $request) {
     $ingrediente = new Ingredientes($descricao, $valor_unitario);
     $ingrediente->gravar();
 
-    return "Ingrediente cadastrado!";
+    return redirect()->route('listagemIngredientes');
 });
 
-Route::post('/deletar/ingredientes', function (Request $request){
-    $id = $request->input('cod_ingrediente');
+//Lista de Usuários
+Route::get('/listagem/ingredientes', function () {
+    $ingredientes = Ingredientes::all();
 
-    $ingrediente = new Ingredientes(null,null);
-    $ingrediente->setCodIngrediente($id);
-    $ingrediente->excluir();
+    return view('listagemIngredientes', ["listaIngredientes"=>$ingredientes]);
+})->name('listagemIngredientes');
 
-    return "Ingrediente deletado!";
+Route::get('/editar/ingrediente/{cod_usuario}', function ($cod_usuario) {
+    $ingrediente = Ingredientes::find($cod_usuario);
 
+    if (!$ingrediente) {
+        return redirect('/listagem/ingredientes')->with('error', 'Ingrediente não encontrado.');
+    }
+
+    return view('editarIngrediente', ['ingrediente' => $ingrediente]);
+});
+
+Route::post('/editar/ingrediente/{cod_ingrediente}', function (Request $request, $cod_ingrediente) {
+    $ingrediente = Ingredientes::find($cod_ingrediente);
+
+    if (!$ingrediente) {
+        return redirect('/listagem/ingredientes')->with('error', 'Ingrediente não encontrado.');
+    }
+
+     $data = [
+        'descricao'      => $request->input('descricao'),
+        'valor_unitario' => $request->input('valor_unitario')
+    ];
+
+    Ingredientes::update($cod_ingrediente, $data);
+
+    return redirect('/listagem/ingredientes')->with('success', 'Ingrediente atualizado com sucesso!');
+});
+
+Route::delete('/excluir/ingrediente/{cod_ingrediente}', function ($cod_ingrediente) {
+    App\Models\Ingredientes::delete($cod_ingrediente);
+    return redirect('/listagem/ingredientes')->with('success', 'Usuário excluído com sucesso!');
 });
 
 // PEDIDOS
@@ -273,14 +301,6 @@ Route::delete('/excluir/usuario/{cod_usuario}', function ($cod_usuario) {
     App\Models\Usuarios::deleteUser($cod_usuario);
     return redirect('/listagem/usuarios')->with('success', 'Usuário excluído com sucesso!');
 });
-
-
-
-// Route::get('/excluir/usuario/{cod_usuario}', function ($cod_usuario) {
-//     Usuarios::deleteUser($cod_usuario);
-
-//     return redirect('/listagem/usuarios')->with('success', 'Usuário excluído com sucesso!');
-// });
 
 Route::post('/get-lanche', function (Request $request) {
     $id = $request->input('id', 0);

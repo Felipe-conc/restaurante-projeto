@@ -25,10 +25,10 @@
                     <a class="nav-link" href="{{ route('listagemUsuarios') }}">Listar Usuários</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="formulario.php">Cadastrar Entrega</a>
+                    <a class="nav-link" href="{{ route('cadIngrediente') }}">Cadastrar Ingrediente</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="alunos.php">Lista de Alunos</a>
+                    <a class="nav-link" href="{{ route('listagemIngredientes') }}">Lista de Ingredientes</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="listagem_geral.php">Listagem Geral</a>
