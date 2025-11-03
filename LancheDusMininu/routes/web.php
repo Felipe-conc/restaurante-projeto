@@ -246,7 +246,10 @@ Route::post('/login', function (Request $request) {
     ->first();
 
     if($usuarioVerifica){
-        //usuário logado
+        $id = DB::table('usuarios')->where('nome', $usuario)->value('cod_usuario');
+        $nome = DB::table('usuarios')->where('nome', $usuario)->value('nome');
+        session(['usuario' => ['cod_usuario' => $id, 'nome_usuario' => $nome]]);
+
     } else {
         return redirect('/login')->with('error', 'Usuário não encontrado.');
     }
