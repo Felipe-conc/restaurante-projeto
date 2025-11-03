@@ -27,11 +27,6 @@ class Ingredientes {
         return DB::table('ingredientes')->where('cod_ingrediente', $id)->update($data);
     }
 
-    public function alterar(){
-        DB::delete('UPDATE ingredientes SET descricao = ?,valor_unitario = ? WHERE cod_ingrediente = ?', 
-                  [$this->descricao, $this->valor_unitario, $this->cod_ingrediente]);
-    }   
-
     public static function all()
     {
         return DB::table('ingredientes')->get();
@@ -41,7 +36,6 @@ class Ingredientes {
     {
         return DB::table('ingredientes')->where('cod_ingrediente', $id)->first();
     }
-
 
     public function getCodIngrediente() {
         return $this->cod_ingrediente;
