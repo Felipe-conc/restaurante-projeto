@@ -5,17 +5,20 @@ use Illuminate\Support\Facades\DB;
 
 class Pratos {
     private $cod_prato;
+    private $titulo;
     private $descricao;
     private $valor_unitario;
+    private $imagem;
 
-    public function __construct($descricao, $valor_unitario) {
+    public function __construct($descricao, $valor_unitario, $titulo) {
         $this->descricao = $descricao;
         $this->valor_unitario = $valor_unitario;
+        $this->titulo = $titulo;
     }
 
     public function gravar(){
-        DB::insert('INSERT INTO pratos(descricao, valor_unitario ) VALUES (?, ?)', 
-                  [$this->descricao, $this->valor_unitario]);
+        DB::insert('INSERT INTO pratos(descricao, valor_unitario, imagem, titulo) VALUES (?, ?, ?, ?)', 
+                  [$this->descricao, $this->valor_unitario, $this->imagem, $this->titulo]);
     }
 
     public function excluir(){
@@ -45,6 +48,11 @@ class Pratos {
         return $this->descricao;
     }
 
+    public function setTitulo($titulo) {
+        $this->titulo = $titulo;
+        return $this;
+    }
+
     public function setDescricao($descricao) {
         $this->descricao = $descricao;
         return $this;
@@ -56,6 +64,11 @@ class Pratos {
 
     public function setValorUnitario($valor_unitario) {
         $this->valor_unitario = $valor_unitario;
+        return $this;
+    }
+
+    public function setImagem($imagem) {
+        $this->imagem = $imagem;
         return $this;
     }
 }

@@ -12,7 +12,7 @@ use App\Http\Controllers\UsuariosController;
 
 //Index
 Route::get('/', function () {
-    $pratos = new Pratos(null, null);
+    $pratos = new Pratos(null, null, null);
     $pratos = $pratos->listar();
     return view('index', ["listaPratos"=>$pratos]);
 })->name('index');
@@ -181,9 +181,10 @@ Route::post('/cadastro/pratos', function (Request $request) {
     $descricao = $request->input('descricao');
     $valor = $request->input('valor');
 
-    $prato = new Pratos($descricao, $valor);
+    $prato = new Pratos($descricao, $valor, $nome);
     $prato->setDescricao($descricao);
     $prato->setValorUnitario($valor);
+    $prato->setImagem('assets/img/img-1.png');
     $prato->gravar();
 
     return redirect()->route('listagemPratos');
@@ -191,7 +192,7 @@ Route::post('/cadastro/pratos', function (Request $request) {
 
 // Listar pratos
 Route::get('/listagem/pratos', function () {
-    $pratos = (new Pratos('', ''))->listar();
+    $pratos = (new Pratos('', '', ''))->listar();
     return view('listagemPratos', ["listaPratos"=>$pratos]);
 })->name('listagemPratos');
 
