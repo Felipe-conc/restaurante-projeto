@@ -23,9 +23,9 @@ class Pratos {
     }
 
     public function alterar(){
-        DB::delete('UPDATE pratos SET descricao=?,valor_unitario=? WHERE cod_prato = ?', 
-                  [$this->descricao, $this->valor_unitario, $this->cod_prato]);
-    }    
+    DB::update('UPDATE pratos SET descricao=?, valor_unitario=? WHERE cod_prato = ?', 
+              [$this->descricao, $this->valor_unitario, $this->cod_prato]);
+} 
 
     public function listar(){
         $lista = DB::select('SELECT * FROM PRATOS ORDER BY cod_prato desc');

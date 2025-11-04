@@ -28,8 +28,15 @@
                     <a class="nav-link" href="{{ route('cadIngrediente') }}">Cadastrar Ingrediente</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('listagemIngredientes') }}">Lista de Ingredientes</a>
+                    <a class="nav-link" href="{{ route('listagemIngredientes') }}">Listar Ingredientes</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('cadPratos') }}">Cadastrar Prato</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('listagemPratos') }}">Listar Prato</a>
+                </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="listagem_geral.php">Listagem Geral</a>
                 </li>

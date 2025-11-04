@@ -534,6 +534,14 @@ class ComposerStaticInitc514d8f7b9fc5970bdd94287905ef584
 
     public static $classMap = array (
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\UsuariosController' => __DIR__ . '/../..' . '/app/Http/Controllers/UsuariosController.php',
+        'App\\Models\\Clientes' => __DIR__ . '/../..' . '/app/Models/Clientes.php',
+        'App\\Models\\Fornecedores' => __DIR__ . '/../..' . '/app/Models/Fornecedores.php',
+        'App\\Models\\Ingredientes' => __DIR__ . '/../..' . '/app/Models/Ingredientes.php',
+        'App\\Models\\Itens_pedido' => __DIR__ . '/../..' . '/app/Models/Itens_pedido.php',
+        'App\\Models\\Pedidos' => __DIR__ . '/../..' . '/app/Models/Pedidos.php',
+        'App\\Models\\Pratos' => __DIR__ . '/../..' . '/app/Models/Pratos.php',
+        'App\\Models\\Usuarios' => __DIR__ . '/../..' . '/app/Models/Usuarios.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Brick\\Math\\BigDecimal' => __DIR__ . '/..' . '/brick/math/src/BigDecimal.php',
