@@ -52,25 +52,30 @@
         </thead>
         <tbody>
             @forelse ($listaPratos as $prato)
-                <tr>
-                    <td>{{ $prato->cod_prato }}</td>
-                    <td>{{ $prato->descricao }}</td>
-                    <td>R$ {{ number_format($prato->valor_unitario, 2, ',', '.') }}</td>
-                    <td class="text-center">
-                        <a href="/editar/prato/{{ $prato->cod_prato }}" class="btn btn-sm btn-warning">Editar</a>
+            <tr>
+                <td>{{ $prato->cod_prato }}</td>
+                <td>{{ $prato->descricao }}</td>
+                <td>R$ {{ number_format($prato->valor_unitario, 2, ',', '.') }}</td>
+                <td class="text-center">
+                    <a href="/editar/prato/{{ $prato->cod_prato }}" class="btn btn-sm btn-warning">Editar</a>
 
-                        <form action="/excluir/prato/{{ $prato->cod_prato }}" method="POST" class="d-inline">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger"
-                                    onclick="return confirm('Deseja realmente excluir este prato?')">
-                                Excluir
-                            </button>
-                        </form>
-                    </td>
-                </tr>
+                    <form action="/excluir/prato/{{ $prato->cod_prato }}" method="POST" class="d-inline">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-sm btn-danger"
+                                onclick="return confirm('Deseja realmente excluir este prato?')">
+                            Excluir
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            @empty
+            <tr>
+                <td colspan="4" class="text-center text-muted">Nenhum prato cadastrado</td>
+            </tr>
             @endforelse
         </tbody>
+
     </table>
 </div>
 
