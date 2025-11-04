@@ -109,18 +109,6 @@
                     <i class="fa fa-shopping-cart" style="font-size:22px;"></i>
                 </a>
 
-
-                <!-- <a href="{{ route('login') }}" class="text-dark me-2" style="text-decoration:none;">
-                    <i class="fa fa-user" style="font-size:20px;"></i> Entrar
-                </a>
-                <span class="text-muted mx-2">|</span>
-                <a href="{{ route('cadUsuario') }}" class="text-dark me-3" style="text-decoration:none;">
-                    <i class="fa fa-user-plus" style="font-size:20px;"></i> Cadastrar
-                </a>
-               <a href="#" id="abrirCarrinho" class="text-dark" style="text-decoration:none;">
-                <i class="fa fa-shopping-cart" style="font-size:22px;"></i>
-                </a> -->
-
             </div>
         </div>
     </nav>

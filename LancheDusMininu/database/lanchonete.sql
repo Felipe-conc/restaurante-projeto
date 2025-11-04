@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 04/11/2025 às 01:30
+-- Tempo de geração: 04/11/2025 às 01:46
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -144,10 +144,8 @@ CREATE TABLE `itens_pedidos` (
 --
 
 INSERT INTO `itens_pedidos` (`cod_pedido`, `cod_prato`, `quantidade`, `valor_unitario`) VALUES
-(8, 7, 1, 16.90),
-(8, 8, 1, 24.90),
-(9, 4, 1, 27.90),
-(9, 8, 1, 24.90);
+(12, 7, 1, 16.90),
+(12, 8, 1, 24.90);
 
 -- --------------------------------------------------------
 
@@ -225,7 +223,7 @@ CREATE TABLE `password_reset_tokens` (
 
 CREATE TABLE `pedidos` (
   `cod_pedido` int(11) NOT NULL,
-  `cod_cliente` int(11) NOT NULL,
+  `cod_usuario` int(11) NOT NULL,
   `preco_total` decimal(10,2) NOT NULL,
   `data_pedido` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -234,16 +232,8 @@ CREATE TABLE `pedidos` (
 -- Despejando dados para a tabela `pedidos`
 --
 
-INSERT INTO `pedidos` (`cod_pedido`, `cod_cliente`, `preco_total`, `data_pedido`) VALUES
-(1, 2, 55.80, '2025-11-02 17:18:21'),
-(2, 2, 47.80, '2025-11-02 17:20:40'),
-(3, 2, 54.70, '2025-11-02 18:01:02'),
-(4, 2, 21.90, '2025-11-02 18:05:13'),
-(5, 2, 21.90, '2025-11-02 18:05:46'),
-(6, 2, 30.90, '2025-11-02 18:10:34'),
-(7, 2, 30.90, '2025-11-02 18:15:22'),
-(8, 2, 47.80, '2025-11-02 18:16:52'),
-(9, 2, 58.80, '2025-11-03 23:19:57');
+INSERT INTO `pedidos` (`cod_pedido`, `cod_usuario`, `preco_total`, `data_pedido`) VALUES
+(12, 4, 47.80, '2025-11-04 00:44:46');
 
 -- --------------------------------------------------------
 
@@ -294,7 +284,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('OZZcRunJffqQQWrFP1Yn44aprKP10JePEEuMdF4q', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', 'YTo0OntzOjk6Il9wcmV2aW91cyI7YToyOntzOjM6InVybCI7czoyMToiaHR0cDovLzEyNy4wLjAuMTo4MDAwIjtzOjU6InJvdXRlIjtzOjU6ImluZGV4Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo2OiJfdG9rZW4iO3M6NDA6InNUSm9DUjFmQUt3VTQ4VnpUNk8yNFRWZVFxQ01neW03TGVCMG1aQWsiO3M6NzoidXN1YXJpbyI7YToyOntzOjExOiJjb2RfdXN1YXJpbyI7aTo0O3M6MTI6Im5vbWVfdXN1YXJpbyI7czo1OiJUZXN0ZSI7fX0=', 1762216179);
+('OZZcRunJffqQQWrFP1Yn44aprKP10JePEEuMdF4q', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', 'YTo0OntzOjk6Il9wcmV2aW91cyI7YToyOntzOjM6InVybCI7czoyMToiaHR0cDovLzEyNy4wLjAuMTo4MDAwIjtzOjU6InJvdXRlIjtzOjU6ImluZGV4Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo2OiJfdG9rZW4iO3M6NDA6InNUSm9DUjFmQUt3VTQ4VnpUNk8yNFRWZVFxQ01neW03TGVCMG1aQWsiO3M6NzoidXN1YXJpbyI7YToyOntzOjExOiJjb2RfdXN1YXJpbyI7aTo0O3M6MTI6Im5vbWVfdXN1YXJpbyI7czo1OiJUZXN0ZSI7fX0=', 1762217147);
 
 -- --------------------------------------------------------
 
@@ -422,7 +412,7 @@ ALTER TABLE `password_reset_tokens`
 --
 ALTER TABLE `pedidos`
   ADD PRIMARY KEY (`cod_pedido`),
-  ADD KEY `cod_cliente` (`cod_cliente`);
+  ADD KEY `cod_usuario` (`cod_usuario`);
 
 --
 -- Índices de tabela `pratos`
@@ -495,7 +485,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT de tabela `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `cod_pedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `cod_pedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de tabela `pratos`
@@ -537,7 +527,7 @@ ALTER TABLE `itens_pedidos`
 -- Restrições para tabelas `pedidos`
 --
 ALTER TABLE `pedidos`
-  ADD CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`cod_cliente`) REFERENCES `clientes` (`cod_cliente`);
+  ADD CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`cod_usuario`) REFERENCES `usuarios` (`cod_usuario`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -382,7 +382,14 @@ Route::post('/fechar-pedido', function(Request $request) {
         
         $total = $subtotal + $taxaEntrega;
  
-        $pedidos = new Pedidos(2, $total, now());
+        if (session()->has('usuario')){
+            $usuario = session('usuario');
+            $cod_usuario = $usuario['cod_usuario'];
+        } else {
+            $cod_usuario = 1;
+        }     
+
+        $pedidos = new Pedidos($cod_usuario, $total, now());
         $pedidoId = $pedidos->gravar();
 
         foreach ($itens as $item) { 

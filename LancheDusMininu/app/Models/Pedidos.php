@@ -4,12 +4,12 @@ use Illuminate\Support\Facades\DB;
 
 class Pedidos {
     private $cod_pedido;
-    private $cod_cliente;
+    private $cod_usuario;
     private $preco_total;
     private $data_pedido;
 
-    public function __construct($cod_cliente, $preco_total, $data_pedido) {
-        $this->cod_cliente = $cod_cliente;
+    public function __construct($cod_usuario, $preco_total, $data_pedido) {
+        $this->cod_usuario = $cod_usuario;
         $this->preco_total = $preco_total;
         $this->data_pedido = $data_pedido;
     }
@@ -21,7 +21,7 @@ class Pedidos {
 
     public function gravar() {
     return DB::table('pedidos')->insertGetId([
-        'cod_cliente' => $this->cod_cliente,
+        'cod_usuario' => $this->cod_usuario,
         'preco_total' => $this->preco_total,
         'data_pedido' => $this->data_pedido
     ]);
@@ -34,7 +34,7 @@ class Pedidos {
 
     public function alterar(){
         DB::delete('UPDATE pedidos SET cod_cliente=?, preco_total = ?,data_pedido = ? WHERE cod_pedido = ?', 
-                  [$this->cod_cliente, $this->preco_total, $this->data_pedido, $this->cod_pedido]);
+                  [$this->cod_usuario, $this->preco_total, $this->data_pedido, $this->cod_pedido]);
     }   
 
     public function getCodPedido() {
@@ -47,7 +47,7 @@ class Pedidos {
     }
 
     public function getCodCliente() {
-        return $this->cod_cliente;
+        return $this->cod_usuario;
     }
 
     public function setCodCliente($cod_cliente) {
