@@ -348,7 +348,7 @@ Route::post('/fechar-pedido', function(Request $request) {
             }, 0);
         
         $total = $subtotal + $taxaEntrega;
-
+ 
         $pedidos = new Pedidos(2, $total, now());
         $pedidoId = $pedidos->gravar();
 
