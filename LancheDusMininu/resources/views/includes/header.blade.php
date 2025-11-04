@@ -19,7 +19,7 @@
                         <i class="fa fa-user" style="font-size:22px; margin-right: 10px;"></i> Olá, {{ $nome }}
                     </a>
                     <a href="{{ route('sair') }}" class="text-white" style="text-decoration:none;">                    
-                        <i class="fa fa-user" style="font-size:22px; margin-right: 10px;"></i> Sair
+                        <i class="bi bi-door-open-fill" style="font-size:22px; margin-right: 10px;"></i> Sair
                     </a>
                 @else
                     <a href="{{ route('login') }}" class="text-white me-2" style="text-decoration:none;">
@@ -82,7 +82,35 @@
             <div class="d-flex align-items-center">
 
             
-                <a href="{{ route('login') }}" class="text-dark me-2" style="text-decoration:none;">
+                @if(session()->has('usuario'))
+                    @php
+                        $usuario = session('usuario');
+                        $nome = $usuario['nome_usuario'];
+                    @endphp
+
+                    <a href="#" class="text-dark me-3" style="text-decoration:none;">
+                        <i class="fa fa-user" style="font-size:20px; margin-right:6px;"></i> Olá, {{ $nome }}
+                    </a>
+                    <a href="{{ route('sair') }}" class="text-dark me-3" style="text-decoration:none;">
+                        <i class="bi bi-door-open-fill" style="font-size:20px; margin-right:6px;"></i> Sair
+                    </a>
+                @else
+                    <a href="{{ route('login') }}" class="text-dark me-2" style="text-decoration:none;">
+                        <i class="fa fa-user" style="font-size:20px; margin-right:6px;"></i> Entrar
+                    </a>
+                    <span class="text-muted mx-2">|</span>
+                    <a href="{{ route('cadUsuario') }}" class="text-dark me-3" style="text-decoration:none;">
+                        <i class="fa fa-user-plus" style="font-size:20px; margin-right:6px;"></i> Cadastrar
+                    </a>
+                @endif
+
+                <span class="text-muted mx-2">|</span>
+                <a href="#" id="abrirCarrinho" class="text-dark" style="text-decoration:none;">
+                    <i class="fa fa-shopping-cart" style="font-size:22px;"></i>
+                </a>
+
+
+                <!-- <a href="{{ route('login') }}" class="text-dark me-2" style="text-decoration:none;">
                     <i class="fa fa-user" style="font-size:20px;"></i> Entrar
                 </a>
                 <span class="text-muted mx-2">|</span>
@@ -91,7 +119,7 @@
                 </a>
                <a href="#" id="abrirCarrinho" class="text-dark" style="text-decoration:none;">
                 <i class="fa fa-shopping-cart" style="font-size:22px;"></i>
-                </a>
+                </a> -->
 
             </div>
         </div>
