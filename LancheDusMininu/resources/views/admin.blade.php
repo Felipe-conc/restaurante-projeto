@@ -37,7 +37,7 @@
                     <a class="nav-link" href="{{ route('listagemPratos') }}">Listar Prato</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="listagem_geral.php">Listagem Geral</a>
+                    <a class="nav-link" href="{{ route('listagemGeral') }}">Listagem Geral</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('ranking') }}">Ranking</a>

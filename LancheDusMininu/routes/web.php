@@ -490,3 +490,51 @@ Route::get('listagem/detalhes/{cod_usuario}', function ($cod_usuario) {
     return view('detalhesPedido', ['detalhesPedidos' => $detalhesPedidos]);
 
 })->name('detalhesPedido');
+
+Route::get('/listagemGeral', function () {
+    
+    $pedidos = DB::table('pedidos')
+                ->join('usuarios', 'usuarios.cod_usuario', '=', 'pedidos.cod_usuario')
+                ->select(
+                    'pedidos.cod_pedido',
+                    'pedidos.data_pedido',
+                    'usuarios.nome_usuario'
+                )
+                ->get();
+
+    $detalhesPedidos = [];
+
+    foreach ($pedidos as $pedido) {
+        $itens = DB::table('itens_pedidos')
+                 ->where('cod_pedido', $pedido->cod_pedido)
+                 ->get();
+
+        $detalhesItens = [];
+        $valorTotal = 0;
+
+        foreach ($itens as $item) {
+            $prato = DB::table('pratos')
+                     ->where('cod_prato', $item->cod_prato)
+                     ->first();
+
+            $valorItem = $item->quantidade * $item->valor_unitario;
+            $valorTotal += $valorItem;
+
+            $detalhesItens[] = [
+                'titulo' => $prato->titulo,
+                'quantidade' => $item->quantidade,
+                'valor_unitario' => $item->valor_unitario,
+                'valor_total' => $valorItem
+            ];
+        }
+
+        $detalhesPedidos[] = [
+            'pedido' => $pedido,
+            'usuario' => $pedido->nome_usuario,
+            'valor_total' => $valorTotal,
+            'itens' => $detalhesItens
+        ];
+    }
+
+    return view('listagemGeral', ['detalhesPedidos' => $detalhesPedidos]);
+})->name('listagemGeral');
