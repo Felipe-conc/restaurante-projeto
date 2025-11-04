@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Ranking</title>
+    <title>Detalhes</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -34,33 +34,43 @@
 
 <div class="container mt-5">
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2>Ranking</h2>
+        <h2>Detalhes</h2>
     </div>
-
     <table class="table table-bordered table-hover align-middle shadow-sm">
         <thead class="table-primary">
             <tr>
                 <th>#</th>
-                <th>Nome</th>
-                <th>Quantidade de Pedidos</th>
-                <th width="180px" class="text-center">Ações</th>
+                <th>Código do Pedido</th>
+                <th>Prato</th>
+                <th>Quantidade</th>
+                <th>Valor Unitário</th>
+                <th>Subtotal</th>
             </tr>
         </thead>
         <tbody>
-            @forelse ($quant_ped_usuarios as $id =>$ped)
-                <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>{{ $ped['nome'] }}</td>
-                    <td>{{ $ped['quantidade'] }}</td>
-                    <td class="text-center">
-                        <a href="/listagem/detalhes/{{ $id }}" class="btn btn-sm btn-warning">Detalhes</a>
-                    </td>
+            @forelse ($detalhesPedidos as $index => $pedido)
+                @foreach ($pedido['itens'] as $item)
+                    <tr>
+                        <td>{{ $loop->parent->iteration }}</td>
+                        <td>{{ $pedido['pedido']->cod_pedido }}</td>
+                        <td>{{ $item['titulo'] }}</td>
+                        <td>{{ $item['quantidade'] }}</td>
+                        <td>R$ {{ number_format($item['valor_unitario'], 2, ',', '.') }}</td>
+                        <td>R$ {{ number_format($item['valor_item'], 2, ',', '.') }}</td>
+                    </tr>
+                @endforeach
+                <tr class="table-secondary fw-bold">
+                    <td colspan="5" class="text-end">Total do Pedido #{{ $pedido['pedido']->cod_pedido }}</td>
+                    <td>R$ {{ number_format($pedido['valor_total'], 2, ',', '.') }}</td>
                 </tr>
-                @empty
+            @empty
                 <tr>
-                    <td colspan="4" class="text-center text-muted">Nenhum usuário com pedidos</td>
+                    <td colspan="6" class="text-center text-muted">
+                        Nenhum pedido encontrado para este usuário
+                    </td>
                 </tr>
             @endforelse
         </tbody>
     </table>
 </div>
+</body>

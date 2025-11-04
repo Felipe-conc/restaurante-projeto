@@ -447,3 +447,46 @@ Route::get('/listagem', function (){
     return view('listagem', ["quant_ped_usuarios" => $quant_ped_usuario]);
 
 })->name('ranking');
+
+Route::get('listagem/detalhes/{cod_usuario}', function ($cod_usuario) {
+
+    $pedidos = DB::table('pedidos')
+                ->where('cod_usuario', $cod_usuario)
+                ->get();
+
+    $detalhesPedidos = [];
+
+    foreach ($pedidos as $pedido) {
+        $itens = DB::table('itens_pedidos')
+                 ->where('cod_pedido', $pedido->cod_pedido)
+                 ->get();
+
+        $detalhesItens = [];
+        $valorTotal = 0;
+
+        foreach ($itens as $item) {
+            $prato = DB::table('pratos')
+                     ->where('cod_prato', $item->cod_prato)
+                     ->first();
+
+            $valorItem = $item->quantidade * $item->valor_unitario;
+            $valorTotal += $valorItem;
+
+            $detalhesItens[] = [
+                'titulo' => $prato->titulo,
+                'quantidade' => $item->quantidade,
+                'valor_unitario' => $item->valor_unitario,
+                'valor_item' => $valorItem
+            ];
+        }
+
+        $detalhesPedidos[] = [
+            'pedido' => $pedido,
+            'itens' => $detalhesItens,
+            'valor_total' => $valorTotal
+        ];
+    }
+
+    return view('detalhesPedido', ['detalhesPedidos' => $detalhesPedidos]);
+
+})->name('detalhesPedido');
