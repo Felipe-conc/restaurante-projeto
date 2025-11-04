@@ -423,3 +423,27 @@ Route::get('/sair', function () {
     return redirect()->route('login');
 
 })->name('sair');
+
+Route::get('/listagem', function (){
+
+    $usuarios = Usuarios::all();
+    $quant_ped_usuario = [];
+
+    foreach ($usuarios as $usuario) {
+        $quant = Pedidos::listarQuantId($usuario->cod_usuario);
+
+        if ($quant > 0) {
+            $quant_ped_usuario[$usuario->cod_usuario] = [
+                'nome' => $usuario->nome_usuario,
+                'quantidade' => $quant
+            ];
+        }
+    }
+
+    uasort($quant_ped_usuario, function ($a, $b) {
+        return $b['quantidade'] <=> $a['quantidade'];
+    });
+
+    return view('listagem', ["quant_ped_usuarios" => $quant_ped_usuario]);
+
+})->name('ranking');

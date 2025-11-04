@@ -37,6 +37,12 @@ class Pedidos {
                   [$this->cod_usuario, $this->preco_total, $this->data_pedido, $this->cod_pedido]);
     }   
 
+    public static function listarQuantId($cod_usuario){
+        return DB::table('pedidos')
+                 ->where('cod_usuario', $cod_usuario)
+                 ->count();
+    }
+
     public function getCodPedido() {
         return $this->cod_pedido;
     }

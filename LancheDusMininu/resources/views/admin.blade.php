@@ -36,12 +36,14 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('listagemPratos') }}">Listar Prato</a>
                 </li>
-
                 <li class="nav-item">
                     <a class="nav-link" href="listagem_geral.php">Listagem Geral</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="listagem.php">Ranking</a>
+                    <a class="nav-link" href="{{ route('ranking') }}">Ranking</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('index') }}">Sair</a>
                 </li>
             </ul>
         </div>

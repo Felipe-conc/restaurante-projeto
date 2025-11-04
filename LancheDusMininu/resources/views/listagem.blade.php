@@ -21,10 +21,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('cadPratos') }}">Cadastrar Prato</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="{{ route('listagemPratos') }}">Listagem de Pratos</a>
+                    <a class="nav-link" href="{{ route('ranking') }}">Ranking</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('admin') }}">Início</a>
@@ -34,46 +31,36 @@
     </div>
 </nav>
 
-<!-- Conteúdo -->
+
 <div class="container mt-5">
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2>Pratos Cadastrados</h2>
-        <a href="{{ route('cadPratos') }}" class="btn btn-primary">Novo Prato</a>
+        <h2>Ranking</h2>
     </div>
 
     <table class="table table-bordered table-hover align-middle shadow-sm">
         <thead class="table-primary">
             <tr>
-                <th>ID</th>
+                <th>#</th>
                 <th>Nome</th>
-                <th>Valor Unitário (R$)</th>
+                <th>Quantidade de Pedidos</th>
                 <th width="180px" class="text-center">Ações</th>
             </tr>
         </thead>
         <tbody>
-            @forelse ($listaPratos as $prato)
+            @forelse ($quant_ped_usuarios as $id =>$ped)
                 <tr>
-                    <td>{{ $prato->cod_prato }}</td>
-                    <td>{{ $prato->descricao }}</td>
-                    <td>R$ {{ number_format($prato->valor_unitario, 2, ',', '.') }}</td>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $ped['nome'] }}</td>
+                    <td>{{ $ped['quantidade'] }}</td>
                     <td class="text-center">
-                        <a href="/editar/prato/{{ $prato->cod_prato }}" class="btn btn-sm btn-warning">Editar</a>
-
-                        <form action="/excluir/prato/{{ $prato->cod_prato }}" method="POST" class="d-inline">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger"
-                                    onclick="return confirm('Deseja realmente excluir este prato?')">
-                                Excluir
-                            </button>
-                        </form>
+                        <a href="/ver/pedidos/{{ $id }}" class="btn btn-sm btn-warning">Detalhes</a>
                     </td>
+                </tr>
+                @empty
+                <tr>
+                    <td colspan="4" class="text-center text-muted">Nenhum usuário com pedidos</td>
                 </tr>
             @endforelse
         </tbody>
     </table>
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
