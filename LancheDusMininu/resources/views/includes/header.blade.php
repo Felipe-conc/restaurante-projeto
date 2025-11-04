@@ -10,13 +10,26 @@
                 </div>
             </div>
             <div class="text-end">
-                <a href="{{ route('login') }}" class="text-white me-2" style="text-decoration:none;">
-                    <i class="fa fa-user" style="font-size:22px; margin-right: 10px;"></i> Entre ou Cadastre-se
-                </a>
-                <span class="text-white mx-2">|</span>
-                <a href="#" id="abrirCarrinho" class="text-white" style="text-decoration:none;">
-                <i class="fa fa-shopping-cart" style="font-size:22px;"></i>
-                </a>
+                @if(session()->has('usuario'))
+                @php
+                    $usuario = session('usuario');  
+                    $nome = $usuario['nome_usuario'];
+                @endphp
+                    <a href="" class="text-white me-2" style="text-decoration:none;">
+                        <i class="fa fa-user" style="font-size:22px; margin-right: 10px;"></i> Olá, {{ $nome }}
+                    </a>
+                    <a href="{{ route('sair') }}" class="text-white" style="text-decoration:none;">                    
+                        <i class="fa fa-user" style="font-size:22px; margin-right: 10px;"></i> Sair
+                    </a>
+                @else
+                    <a href="{{ route('login') }}" class="text-white me-2" style="text-decoration:none;">
+                        <i class="fa fa-user" style="font-size:22px; margin-right: 10px;"></i> Entre ou Cadastre-se
+                    </a>
+                @endif
+                    <span class="text-white mx-2">|</span>
+                    <a href="#" id="abrirCarrinho" class="text-white" style="text-decoration:none;">                    
+                        <i class="fa fa-shopping-cart" style="font-size:22px;"></i>
+                    </a>                    
             </div>
         </div>
     </div>
@@ -67,6 +80,8 @@
 
             <!-- Links direita -->
             <div class="d-flex align-items-center">
+
+            
                 <a href="{{ route('login') }}" class="text-dark me-2" style="text-decoration:none;">
                     <i class="fa fa-user" style="font-size:20px;"></i> Entrar
                 </a>

@@ -218,9 +218,11 @@ Route::post('/login', function (Request $request) {
     ->first();
 
     if($usuarioVerifica){
-        $id = DB::table('usuarios')->where('nome', $usuario)->value('cod_usuario');
-        $nome = DB::table('usuarios')->where('nome', $usuario)->value('nome');
+        $id = DB::table('usuarios')->where('nome_usuario', $usuario)->value('cod_usuario');
+        $nome = DB::table('usuarios')->where('nome_usuario', $usuario)->value('nome_usuario');
         session(['usuario' => ['cod_usuario' => $id, 'nome_usuario' => $nome]]);
+        
+        return redirect('/');
 
     } else {
         return redirect('/login')->with('error', 'Usuário não encontrado.');
@@ -377,3 +379,11 @@ Route::post('/fechar-pedido', function(Request $request) {
         return response()->json(['sucesso' => false, 'mensagem' => 'Erro ao finalizar pedido: '.$e->getMessage()]);
     }
 })->name('fechar-pedido');
+
+Route::get('/sair', function () {
+
+    session()->flush();
+
+    return redirect()->route('login');
+
+})->name('sair');
